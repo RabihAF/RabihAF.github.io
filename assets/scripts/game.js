@@ -178,7 +178,7 @@ function drawInstructions() {
 
 function drawPreInstructions(y) {
   ctx.fillText(
-    "Little Space Invaders style game just for fun, developed by me ;-)",
+    "A little game just for fun, made by me!",
     canvasWidth / 2,
     canvasHeight / 2 - keyboardImage.height + y
   );
@@ -223,7 +223,7 @@ function drawPostInstructions(y) {
   if (mobileBrowser) {
     ctx.fillStyle = "#FF0000";
     ctx.fillText(
-      "Sorry this game doen't support mobile phones!",
+      "Sorry mobile devices not supported!",
       canvasWidth / 2,
       canvasHeight / 2 + keyboardImage.height - 140 + y
     );
