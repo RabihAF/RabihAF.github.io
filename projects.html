@@ -19,6 +19,23 @@
   <title>Rabih's Profile</title>
 
   <link href="./assets/style/main.3f6952e4.css" rel="stylesheet">
+
+  <script>
+    function filterProjects(elem) {
+      const projectName = elem.value;
+      if ("Personal Projects" === projectName) {
+        document.getElementById("personalProjects").style.display = "block";
+        document.getElementById("openSourceIntegrations").style.display = "none";
+      } else if ("Open Source Integrations" === projectName) {
+        document.getElementById("personalProjects").style.display = "none";
+        document.getElementById("openSourceIntegrations").style.display = "block";
+      } else {
+        document.getElementById("personalProjects").style.display = "block";
+        document.getElementById("openSourceIntegrations").style.display = "block";
+      }
+    }
+  </script>
+
 </head>
 
 <body class="">
@@ -45,8 +62,6 @@
             <li><a href="./certification.html" title="">Certification</a></li>
             <li><a href="./blog.html" title="">Blog</a></li>
             <li><a href="./contact.html" title="">Contact</a></li>
-            <li><a href="./d3-map-shutterstock.html" title="">Interactive Map</a></li>
-            <li><a href="./game.html" title="">Game!</a></li>
           </ul>
 
         </div>
@@ -57,210 +72,269 @@
 
   <div class="section-container">
     <div class="container">
+
       <div class="col-xs-12">
         <div class="template-example">
-          <h2 class="template-title-example">Personal Projects</h2>
-          <div class="row">
-            <div class="col-md-10 col-md-offset-1">
+          <form>
+            Project Type:
+            <select id='myProjects' onChange="filterProjects(this);">
+              <option>All</option>
+              <option>Personal Projects</option>
+              <option>Open Source Integrations</option>
+            </select>
+          </form>
+        </div>
+      </div>
 
-              <div class="row">
-                <h3>Interactive Map with Shutterstock</h3>
-                <div class="col-xs-12 col-md-6">
-                  <h4>2021</h4>
-                  <p style="font-size:12px">Interactive map integrated with Shutterstock API, developed with D3.js
-                    </br></br>Source Code: <a href="https://github.com/RabihAF/d3-map-shutterstock" target="_blank"
-                      title="Browser D3 Map">Github</a>
-                    </br>Demo: <a href="./d3-map-shutterstock.html" title="D3 Interactive Map with Shutterstock">Check
-                      it out</a>
-                  </p>
-                </div>
-                <div class="col-xs-12 col-md-6">
-                  <div class="media-container">
-                    <img width="0" src="./assets/images/d3map.png" class="img-responsive"
-                      alt="D3 Interactive Map with Shutterstock">
+      <div id="personalProjects">
+        <div class="col-xs-12">
+          <div class="template-example">
+            <h2 class="template-title-example">Personal Projects</h2>
+            <div class="row">
+              <div class="col-md-10 col-md-offset-1">
+
+                <div class="row">
+                  <h3>Gate Automation Mobile Application</h3>
+                  <div class="col-xs-12 col-md-6">
+                    <h4>2021</h4>
+                    <p style="font-size:12px">An application to control an entrance gate via the internet and a live
+                      security IP camera, developed with Flutter
+                      </br>Blog: <a href="./blog-gate-automation.html" title="Gate Automation Blog">Gate Automation
+                        Blog</a>
+                    </p>
+                  </div>
+                  <div class="col-xs-12 col-md-6">
+                    <img  src="./assets/images/app-screens.png" class="img-responsive"
+                      alt="Gate Automation App Screens">
                   </div>
                 </div>
-              </div>
 
-              <div class="row">
-                <h3>Space Invaders Style Game</h3>
-                <div class="col-xs-12 col-md-6">
-                  <h4>2021</h4>
-                  <p style="font-size:12px">Little Space Invaders style game just for fun, developed with JavaScript
-                    </br></br>Source Code: <a href="https://github.com/RabihAF/space-invaders-game" target="_blank"
-                      title="Browser Game">Github</a>
-                    </br>Demo: <a href="./game.html" title="Space Invaders Style Game">Play the Game</a>
-                  </p>
-                </div>
-                <div class="col-xs-12 col-md-6">
-                  <div class="media-container">
-                    <img width="0" src="./assets/images/game.png" class="img-responsive"
-                      alt="Space Invaders Style Game">
+                <div class="row">
+                  <h3>Interactive Map with Shutterstock</h3>
+                  <div class="col-xs-12 col-md-6">
+                    <h4>2021</h4>
+                    <p style="font-size:12px">Interactive map integrated with Shutterstock API, developed with D3.js
+                      </br></br>Source Code: <a href="https://github.com/RabihAF/d3-map-shutterstock" target="_blank"
+                        title="Browser D3 Map">Github</a>
+                      </br>Demo: <a href="./d3-map-shutterstock.html" title="D3 Interactive Map with Shutterstock">Check
+                        it out</a>
+                    </p>
+                  </div>
+                  <div class="col-xs-12 col-md-6">
+                    <div class="media-container">
+                      <img width="0" src="./assets/images/d3map.png" class="img-responsive"
+                        alt="D3 Interactive Map with Shutterstock">
+                    </div>
                   </div>
                 </div>
-              </div>
 
+                <div class="row">
+                  <h3>Space Invaders Style Game</h3>
+                  <div class="col-xs-12 col-md-6">
+                    <h4>2021</h4>
+                    <p style="font-size:12px">Space Invaders style game just for fun, developed with JavaScript
+                      </br></br>Source Code: <a href="https://github.com/RabihAF/space-invaders-game" target="_blank"
+                        title="Browser Game">Github</a>
+                      </br>Demo: <a href="./game.html" title="Space Invaders Style Game">Play the Game</a>
+                    </p>
+                  </div>
+                  <div class="col-xs-12 col-md-6">
+                    <div class="media-container">
+                      <img width="0" src="./assets/images/game.png" class="img-responsive"
+                        alt="Space Invaders Style Game">
+                    </div>
+                  </div>
+                </div>
+
+              </div>
             </div>
           </div>
         </div>
       </div>
 
+      <div id="openSourceIntegrations">
+        <div class="col-xs-12">
+          <div class="template-example">
+            <h2 class="template-title-example">Open Source Integrations</h2>
+            <div class="row">
+              <div class="col-md-10 col-md-offset-1">
 
-      <div class="col-xs-12">
-        <div class="template-example">
-          <h2 class="template-title-example">Open Source Integrations</h2>
-          <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-
-              <div class="row">
-                <h3>Cloud Access Security Broker & Splunk Integration</h3>
-                <div class="col-xs-12 col-md-6">
-                  <h4>2021</h4>
-                  <p style="font-size:12px">Splunk Search Processing Language, Splunk UI, Docker and Bash Scripts
-                    </br></br>Source Code - Splunk App: <a href="https://github.com/Forcepoint/fp-bd-splunk-app"
-                      target="_blank" title="Splunk App">Github</a>
-                    </br>Source Code - Universal Forwarder: <a
-                      href="https://github.com/Forcepoint/fp-bd-splunk-universal-forwarder" target="_blank"
-                      title="Universal Forwarder">Github</a>
-                    </br>Documentation: <a href="https://forcepoint.github.io/docs/casb_and_splunk/" target="_blank"
-                      title="Cloud Access Security Broker & Splunk Integration">Github Pages</a>
-                  </p>
-                </div>
-                <div class="col-xs-12 col-md-6">
-                  <div class="media-container">
-                    <iframe width="0"
-                      src="https://fast.wistia.com/embed/iframe/ac0hhdlu5j?version=v1&controlsVisibleOnLoad=true&playerColor=aae3d8"
-                      frameborder="0" allowfullscreen ng-show="showvideo"></iframe>
+                <div class="row">
+                  <h3>Dynamic Intelligence Manager</h3>
+                  <div class="col-xs-12 col-md-6">
+                    <h4>2021</h4>
+                    <p style="font-size:12px">
+                      I contributed into this open source project by adding support for ingestion, storage and export of
+                      SNORT Signatures and File Hashes (SHA256 format).
+                      <br /><br />
+                      Golang, Vue.js and Docker
+                      </br></br>Source Code: <a href="https://github.com/Forcepoint?q=dim&type=&language=&sort="
+                        target="_blank" title="DIM Repositories">Github</a>
+                      </br>Documentation: <a href="https://forcepoint.github.io/docs/dim/" target="_blank"
+                        title="Documentation">Github Pages</a>
+                      </br>Info: <a href="https://info.forcepoint.com/forcepoint-dim/" title="Info" target="_blank">Open
+                        Source Centralized Security Intelligence</a>
+                    </p>
+                  </div>
+                  <div class="col-xs-12 col-md-6">
+                    <div class="media-container">
+                      <img width="0" src="./assets/images/dim.png" class="img-responsive"
+                        alt="DIM Generic Data Importer">
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div class="row">
-                <h3>Forcepoint and Microsoft Graph API Integration</h3>
-                <div class="col-xs-12 col-md-6">
-                  <h4>2020</h4>
-                  <p style="font-size:12px">Node.js, NPM, Microsoft Graph Client, Azure, Docker and Bash Scripts
-                    </br></br>Source Code: <a href="https://github.com/Forcepoint/fp-bd-graphapi-integration"
-                      target="_blank" title="Graph API Integration">Github</a>
-                    </br>Documentation: <a href="https://forcepoint.github.io/docs/fp_and_azure_graphapi/"
-                      target="_blank" title="Forcepoint and Microsoft Graph API Integration">Github Pages</a>
-                  </p>
-                </div>
-                <div class="col-xs-12 col-md-6">
-                  <div class="media-container">
-                    <img width="0" src="./assets/images/graph-api.png" class="img-responsive"
-                      alt="Microsoft Graph API Integration">
+                <div class="row">
+                  <h3>Cloud Access Security Broker & Splunk Integration</h3>
+                  <div class="col-xs-12 col-md-6">
+                    <h4>2021</h4>
+                    <p style="font-size:12px">Splunk Search Processing Language, Splunk UI, Docker and Bash Scripts
+                      </br></br>Source Code - Splunk App: <a href="https://github.com/Forcepoint/fp-bd-splunk-app"
+                        target="_blank" title="Splunk App">Github</a>
+                      </br>Source Code - Universal Forwarder: <a
+                        href="https://github.com/Forcepoint/fp-bd-splunk-universal-forwarder" target="_blank"
+                        title="Universal Forwarder">Github</a>
+                      </br>Documentation: <a href="https://forcepoint.github.io/docs/casb_and_splunk/" target="_blank"
+                        title="Cloud Access Security Broker & Splunk Integration">Github Pages</a>
+                    </p>
+                  </div>
+                  <div class="col-xs-12 col-md-6">
+                    <div class="media-container">
+                      <iframe width="0"
+                        src="https://fast.wistia.com/embed/iframe/ac0hhdlu5j?version=v1&controlsVisibleOnLoad=true&playerColor=aae3d8"
+                        frameborder="0" allowfullscreen ng-show="showvideo"></iframe>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div class="row">
-                <h3>Next Generation Firewall & Splunk Integration</h3>
-                <div class="col-xs-12 col-md-6">
-                  <h4>2020</h4>
-                  <p style="font-size:12px">Splunk Search Processing Language, Splunk UI, Docker and Bash Scripts
-                    </br></br>Source Code - Splunk App: <a href="https://github.com/Forcepoint/fp-bd-splunk-app"
-                      target="_blank" title="Splunk App">Github</a>
-                    </br>Source Code - Universal Forwarder: <a
-                      href="https://github.com/Forcepoint/fp-bd-splunk-universal-forwarder" target="_blank"
-                      title="Universal Forwarder">Github</a>
-                    </br>Documentation: <a href="https://forcepoint.github.io/docs/ngfw_and_splunk/" target="_blank"
-                      title="Next Generation Firewall & Splunk Integration">Github Pages</a>
-                  </p>
-                </div>
-                <div class="col-xs-12 col-md-6">
-                  <div class="media-container">
-                    <iframe width="0" src="https://www.youtube.com/embed/YS-XjCFeJTU" frameborder="0" allowfullscreen
-                      ng-show="showvideo"></iframe>
+                <div class="row">
+                  <h3>Forcepoint and Microsoft Graph API Integration</h3>
+                  <div class="col-xs-12 col-md-6">
+                    <h4>2020</h4>
+                    <p style="font-size:12px">Node.js, NPM, Microsoft Graph Client, Azure, Docker and Bash Scripts
+                      </br></br>Source Code: <a href="https://github.com/Forcepoint/fp-bd-graphapi-integration"
+                        target="_blank" title="Graph API Integration">Github</a>
+                      </br>Documentation: <a href="https://forcepoint.github.io/docs/fp_and_azure_graphapi/"
+                        target="_blank" title="Forcepoint and Microsoft Graph API Integration">Github Pages</a>
+                    </p>
+                  </div>
+                  <div class="col-xs-12 col-md-6">
+                    <div class="media-container">
+                      <img width="0" src="./assets/images/graph-api.png" class="img-responsive"
+                        alt="Microsoft Graph API Integration">
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div class="row">
-                <h3>Cloud Security Gateway & Splunk Integration</h3>
-                <div class="col-xs-12 col-md-6">
-                  <h4>2020</h4>
-                  <p style="font-size:12px">Splunk Search Processing Language, Splunk UI, Docker and Bash Scripts
-                    </br></br>Source Code - Splunk App: <a href="https://github.com/Forcepoint/fp-bd-splunk-app"
-                      target="_blank" title="Splunk App">Github</a>
-                    </br>Source Code - Universal Forwarder: <a
-                      href="https://github.com/Forcepoint/fp-bd-splunk-universal-forwarder" target="_blank"
-                      title="Universal Forwarder">Github</a>
-                    </br>Source Code - Log Import Service: <a
-                      href="https://github.com/Forcepoint/fp-bd-log-import-service" target="_blank"
-                      title="Log Import">Github</a>
-                    </br>Documentation: <a href="https://forcepoint.github.io/docs/csg_and_splunk/" target="_blank"
-                      title="Cloud Security Gateway & Splunk Integration">Github Pages</a>
-                  </p>
-                </div>
-                <div class="col-xs-12 col-md-6">
-                  <div class="media-container">
-                    <iframe width="0" src="https://www.youtube.com/embed/CGUQLMJYE7c" frameborder="0" allowfullscreen
-                      ng-show="showvideo"></iframe>
+                <div class="row">
+                  <h3>Next Generation Firewall & Splunk Integration</h3>
+                  <div class="col-xs-12 col-md-6">
+                    <h4>2020</h4>
+                    <p style="font-size:12px">Splunk Search Processing Language, Splunk UI, Docker and Bash Scripts
+                      </br></br>Source Code - Splunk App: <a href="https://github.com/Forcepoint/fp-bd-splunk-app"
+                        target="_blank" title="Splunk App">Github</a>
+                      </br>Source Code - Universal Forwarder: <a
+                        href="https://github.com/Forcepoint/fp-bd-splunk-universal-forwarder" target="_blank"
+                        title="Universal Forwarder">Github</a>
+                      </br>Documentation: <a href="https://forcepoint.github.io/docs/ngfw_and_splunk/" target="_blank"
+                        title="Next Generation Firewall & Splunk Integration">Github Pages</a>
+                    </p>
+                  </div>
+                  <div class="col-xs-12 col-md-6">
+                    <div class="media-container">
+                      <iframe width="0" src="https://www.youtube.com/embed/YS-XjCFeJTU" frameborder="0" allowfullscreen
+                        ng-show="showvideo"></iframe>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div class="row">
-                <h3>CASB & Ping Identity Integration</h3>
-                <div class="col-xs-12 col-md-6">
-                  <h4>2020</h4>
-                  <p style="font-size:12px">Python, Pipenv, Pytest, Flask Rest API, Kafka, Docker and Bash Scripts
-                    </br></br>Source Code: <a href="https://github.com/Forcepoint/fp-bd-riskscore-ping-api"
-                      target="_blank" title="Risk Score API">Github</a>
-                    </br>Documentation: <a href="https://forcepoint.github.io/docs/ping_and_casb/" target="_blank"
-                      title="CASB & Ping Identity Integration">Github Pages</a>
-                  </p>
-                </div>
-                <div class="col-xs-12 col-md-6">
-                  <div class="media-container">
-                    <iframe width="0" src="https://www.youtube.com/embed/5rpi_-iKoF4" frameborder="0" allowfullscreen
-                      ng-show="showvideo"></iframe>
+                <div class="row">
+                  <h3>Cloud Security Gateway & Splunk Integration</h3>
+                  <div class="col-xs-12 col-md-6">
+                    <h4>2020</h4>
+                    <p style="font-size:12px">Splunk Search Processing Language, Splunk UI, Docker and Bash Scripts
+                      </br></br>Source Code - Splunk App: <a href="https://github.com/Forcepoint/fp-bd-splunk-app"
+                        target="_blank" title="Splunk App">Github</a>
+                      </br>Source Code - Universal Forwarder: <a
+                        href="https://github.com/Forcepoint/fp-bd-splunk-universal-forwarder" target="_blank"
+                        title="Universal Forwarder">Github</a>
+                      </br>Source Code - Log Import Service: <a
+                        href="https://github.com/Forcepoint/fp-bd-log-import-service" target="_blank"
+                        title="Log Import">Github</a>
+                      </br>Documentation: <a href="https://forcepoint.github.io/docs/csg_and_splunk/" target="_blank"
+                        title="Cloud Security Gateway & Splunk Integration">Github Pages</a>
+                    </p>
+                  </div>
+                  <div class="col-xs-12 col-md-6">
+                    <div class="media-container">
+                      <iframe width="0" src="https://www.youtube.com/embed/CGUQLMJYE7c" frameborder="0" allowfullscreen
+                        ng-show="showvideo"></iframe>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="row">
-                <h3>CASB & AWS Security Hub Integration</h3>
-                <div class="col-xs-12 col-md-6">
-                  <h4>2019</h4>
-                  <p style="font-size:12px">Amazon Web Services, Python, Pipenv, Docker and Bash Scripts
-                    </br></br>Source Code: <a href="https://github.com/Forcepoint/fp-bd-casb-aws-securityhub"
-                      target="_blank" title="Upload CASB logs to AWS Security Hub">Github</a>
-                    </br>Documentation: <a href="https://forcepoint.github.io/docs/casb_and_aws_sechub/" target="_blank"
-                      title="CASB & AWS Security Hub Integration">Github Pages</a>
-                  </p>
-                </div>
-                <div class="col-xs-12 col-md-6">
-                  <div class="media-container">
-                    <iframe width="0" src="https://www.youtube.com/embed/ZFpwkR2xMAE" frameborder="0" allowfullscreen
-                      ng-show="showvideo"></iframe>
+
+                <div class="row">
+                  <h3>CASB & Ping Identity Integration</h3>
+                  <div class="col-xs-12 col-md-6">
+                    <h4>2020</h4>
+                    <p style="font-size:12px">Python, Pipenv, Pytest, Flask Rest API, Kafka, Docker and Bash Scripts
+                      </br></br>Source Code: <a href="https://github.com/Forcepoint/fp-bd-riskscore-ping-api"
+                        target="_blank" title="Risk Score API">Github</a>
+                      </br>Documentation: <a href="https://forcepoint.github.io/docs/ping_and_casb/" target="_blank"
+                        title="CASB & Ping Identity Integration">Github Pages</a>
+                    </p>
+                  </div>
+                  <div class="col-xs-12 col-md-6">
+                    <div class="media-container">
+                      <iframe width="0" src="https://www.youtube.com/embed/5rpi_-iKoF4" frameborder="0" allowfullscreen
+                        ng-show="showvideo"></iframe>
+                    </div>
                   </div>
                 </div>
-              </div>
-
-              <div class="row">
-                <h3>Behavior Analytics & Ping Identity Integration</h3>
-                <div class="col-xs-12 col-md-6">
-                  <h4>2019</h4>
-                  <p style="font-size:12px">Docker, NFS and Bash Scripts
-                    </br></br>Source Code: <a href="https://github.com/Forcepoint/fp-bd-fba-pingfederate-log-monitor"
-                      target="_blank" title="Monitor Ping Failed Logins">Github</a>
-                    </br>Documentation: <a href="https://forcepoint.github.io/docs/ping_and_fba/" target="_blank"
-                      title="Behavior Analytics & Ping Identity Integration">Github Pages</a>
-                  </p>
-                </div>
-                <div class="col-xs-12 col-md-6">
-                  <div class="media-container">
-                    <iframe width="0" src="https://www.youtube.com/embed/wMgqsDO2phA" frameborder="0" allowfullscreen
-                      ng-show="showvideo"></iframe>
+                <div class="row">
+                  <h3>CASB & AWS Security Hub Integration</h3>
+                  <div class="col-xs-12 col-md-6">
+                    <h4>2019</h4>
+                    <p style="font-size:12px">Amazon Web Services, Python, Pipenv, Docker and Bash Scripts
+                      </br></br>Source Code: <a href="https://github.com/Forcepoint/fp-bd-casb-aws-securityhub"
+                        target="_blank" title="Upload CASB logs to AWS Security Hub">Github</a>
+                      </br>Documentation: <a href="https://forcepoint.github.io/docs/casb_and_aws_sechub/"
+                        target="_blank" title="CASB & AWS Security Hub Integration">Github Pages</a>
+                    </p>
+                  </div>
+                  <div class="col-xs-12 col-md-6">
+                    <div class="media-container">
+                      <iframe width="0" src="https://www.youtube.com/embed/ZFpwkR2xMAE" frameborder="0" allowfullscreen
+                        ng-show="showvideo"></iframe>
+                    </div>
                   </div>
                 </div>
-              </div>
 
+                <div class="row">
+                  <h3>Behavior Analytics & Ping Identity Integration</h3>
+                  <div class="col-xs-12 col-md-6">
+                    <h4>2019</h4>
+                    <p style="font-size:12px">Docker, NFS and Bash Scripts
+                      </br></br>Source Code: <a href="https://github.com/Forcepoint/fp-bd-fba-pingfederate-log-monitor"
+                        target="_blank" title="Monitor Ping Failed Logins">Github</a>
+                      </br>Documentation: <a href="https://forcepoint.github.io/docs/ping_and_fba/" target="_blank"
+                        title="Behavior Analytics & Ping Identity Integration">Github Pages</a>
+                    </p>
+                  </div>
+                  <div class="col-xs-12 col-md-6">
+                    <div class="media-container">
+                      <iframe width="0" src="https://www.youtube.com/embed/wMgqsDO2phA" frameborder="0" allowfullscreen
+                        ng-show="showvideo"></iframe>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
             </div>
           </div>
         </div>
       </div>
+
     </div>
   </div>
   </div>
