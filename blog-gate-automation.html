@@ -93,12 +93,6 @@
               </div>
 
               <h3>Application</h3>
-              <!-- <img width="250px" height="500px" src="./assets/images/app-main-screen.png" class="img-responsive"
-                  alt="Gate Automation App Main Screen">
-                <img width="250px" height="500px" src="./assets/images/app-schedule-screen.png" class="img-responsive"
-                  alt="Gate Automation App Schedule Screen">
-                <img width="250px" height="500px" src="./assets/images/app-schedule-action-screen.png" class="img-responsive"
-                  alt="Gate Automation App Schedule Action Screen"> -->
 
               <div class="row">
                 <div class="col-xs-12 col-md-6">
@@ -133,7 +127,7 @@
                   The Schedule Screen is made to set a schedule for the gate with a specific function e.g. open the gate
                   every day at 8 O'clock in the morning.
                   <br />
-                  There are four options when adding a schedule:
+                  There are few options when adding a schedule to select:
                   <ul>
                     <li>Choose the time</li>
                     <li>Choose the period</li>
@@ -151,7 +145,23 @@
                 </div>
               </div>
               <h3>Development</h3>
-              This page is still under contruction 🚧 the content for this section will be provided soon!
+              The development process involved four different parts:
+              <ol>
+                <li>A Gate Program</li>
+                The program was developed in python, resides on a Raspberry Pi, acts as MQTT client that connects to the
+                broker and subscribes to the gate topic.
+                Also handles scheduling the events using cron jobs.
+                <li>MQTT Broker</li>
+                Setting up MQTT Broker using docker container with few bash scripts to configure the SSL Certs, the
+                MQTTS network port and the authentication part.
+                <li>IP Camera</li>
+                Setting up an IP camera pointing to the gate and setting up the firewall rules for port forwarding in
+                order to establish a conection with the camera.
+                <li>Phone Application</li>
+                The application was developed with flutter to support Multi-Platform.
+                The application acts as MQTT client that publish messages into the broker and connects to the security
+                camera.
+              </ol>
 
               <h3>Improvments</h3>
               As this still in working progress, I am planning on implementing the below in the near future:
@@ -160,10 +170,6 @@
                 <li>Integrate with Google Assistant, Alexa and Siri to control the gate via voice command</li>
                 <li>Integrate with Nest Hello Doorbell by Google and Ring Video Doorbell by Amazon</li>
               </ul>
-
-              <!-- <div class="media-container">
-                <img width="0" src="./assets/images/sender-app.png" class="img-responsive" alt="Sender App">
-              </div> -->
             </div>
 
           </div>
