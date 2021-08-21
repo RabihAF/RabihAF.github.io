@@ -19,6 +19,22 @@
   <title>Rabih's Profile</title>
 
   <link href="./assets/style/main.3f6952e4.css" rel="stylesheet">
+
+  <style>
+    pre {
+      overflow: auto;
+      background: #000000;
+      padding-left: 10px;
+      padding-bottom: 10px;
+      padding-top: 10px;
+      white-space: pre-wrap;
+      white-space: -moz-pre-wrap;
+      white-space: -o-pre-wrap;
+      white-space: -ms-pre-wrap;
+      font-family: "courier new", courier, monospace;
+      font-size: 11px;
+    }
+  </style>
 </head>
 
 <body class="">
@@ -43,8 +59,8 @@
             <li><a href="./index.html" title="">Home</a></li>
             <li><a href="./projects.html" title="">Projects</a></li>
             <li><a href="./certification.html" title="">Certification</a></li>
-            <li><a href="./blog.html" title=""><b>Blog</b></a></li>
-            <li><a href="./api-playground.html" title="">API Playground</a></li>
+            <li><a href="./blog.html" title="">Blog</a></li>
+            <li><a href="./api-playground.html" title=""><b>API Playground</b></a></li>
             <li><a href="./contact.html" title="">Contact</a></li>
           </ul>
 
@@ -59,37 +75,118 @@
       <div class="col-xs-12">
         <div class="row">
           <div class="col-md-10 col-md-offset-1">
-
+            <h4>
+              <span style="color: #F91806;">
+                Please note these demos are only made available on request
+                <hr />
+              </span>
+            </h4>
             <div class="row">
               <h3>
-                <a href="./blog-gate-automation.html" title="Gate Automation Blog">Gate Automation Mobile Application
-                  Blog</a>
+                <a href="https://rest.rabih.duckdns.org" target="_blank" title="Rest API">Simple Rest API Demo</a>
               </h3>
-              An application to control an entrance gate via the internet and a live security IP camera, developed with
-              Flutter.
+              This API is running on a docker container that runs a web service over HTTPS behind a reverse proxy and it
+              has JWT token support
+              <br /><br />
               <div class="col-xs-12 col-md-6">
-                <img src="./assets/images/app-all-screens.png" class="img-responsive" alt="Gate Automation App Screens">
+                <img src="./assets/images/rest-api.png" class="img-responsive" alt="Rest API">
               </div>
             </div>
 
             <div class="row">
               <h3>
-                <a href="./blog-human-activity-recognition.html"
-                  title="Human Activity Recognition Using a Mobile Phone Device Blog">Human Activity Recognition Using a
-                  Mobile Phone Device Blog</a>
+                <a href="https://graphql.rabih.duckdns.org" target="_blank" title="GraphQL API">Simple GraphQL API
+                  Demo</a>
               </h3>
-              A project involved IOT data collection using a developed Android app
-              and apply supervised machine learning methods.
-              <br />
-              This was developed with Python, Scikit-Learn, Android - Java, NodeRed and MQTT.
-              <br />
-              This thesis was awarded a first class honours result,
-              <a href="http://bit.ly/3odmA7x" target="_blank"
-                title="Human Activity Recognition Using a Mobile Phone Device Thesis">thesis link</a>.
+              This API is running on a docker container that runs a web service over HTTPS behind a reverse proxy
+              <br /><br />
               <div class="col-xs-12 col-md-6">
-                <img src="./assets/images/run-vs-walk.png" class="img-responsive"
-                  alt="Running versus Walking Activities Cluster Graphs">
+                <img src="./assets/images/graphql-api.png" class="img-responsive" alt="GraphQL API">
               </div>
+            </div>
+
+            <div class="row">
+              <br />
+              GraphQL Queries and Mutations
+              <pre>
+                <span style="color: #ffffff;">
+query ListEntitiesQuery {
+  listEntities {
+    success
+    errors
+    entity {
+      value
+      name
+      id
+    }
+  }
+}
+
+query GetEntityQuery($getEntityId: ID!) {
+  getEntity(id: $getEntityId) {
+    success
+    errors
+    entity {
+      value
+      name
+      id
+    }
+  }
+}
+
+mutation CreateEntityMutation($createEntityEntity: EntityInput) {
+  createEntity(entity: $createEntityEntity) {
+    success
+    errors
+    entity {
+      id
+      name
+      value
+    }
+  }
+}
+
+mutation UpdateEntityMutation($updateEntityId: ID!, $updateEntityName: String, $updateEntityValue: Float) {
+  updateEntity(id: $updateEntityId, name: $updateEntityName, value: $updateEntityValue) {
+    success
+    errors
+    entity {
+      id
+      name
+      value
+    }
+  }
+}
+
+mutation DeleteEntityMutation($deleteEntityId: ID) {
+  deleteEntity(id: $deleteEntityId) {
+    success
+    errors
+    entity {
+      id
+      name
+      value
+    }
+  }
+}
+                </span>
+              </pre>
+              GraphQL Variables
+              <pre>
+                <span style="color: #ffffff;">
+{
+  "getEntityId": 1,
+  "createEntityEntity": {
+    "name": "hello",
+    "value": 20.0
+  },
+  "updateEntityId": 1,
+  "updateEntityName": "updated",
+  "updateEntityValue": 50.0,
+  "deleteEntityId": 1
+}
+                </span>
+              </pre>
             </div>
 
           </div>
