@@ -1,89 +1,1362 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta content="IE=edge" http-equiv="X-UA-Compatible">
-  <meta content="width=device-width,initial-scale=1" name="viewport">
-  <meta content="description" name="description">
-  <meta name="google" content="notranslate" />
-  <meta content="Rabih Abou Fakher - Software Engineer" name="Rabih Abou Fakher">
+<meta charset="UTF-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="width=device-width,initial-scale=1" name="viewport">
+<meta name="description" content="Rabih Abou Fakher - Agentic AI Engineer. An interactive agentic flow about my background, skills and experience.">
+<meta name="google" content="notranslate" />
+<meta name="msapplication-tap-highlight" content="no">
 
-  <!-- Disable tap highlight on IE -->
-  <meta name="msapplication-tap-highlight" content="no">
+<link rel="apple-touch-icon" sizes="180x180" href="./assets/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon/favicon-16x16.png">
 
-  <link rel="apple-touch-icon" sizes="180x180" href="./assets/favicon/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon/favicon-16x16.png">
+<title>Rabih Abou Fakher — Agentic AI Engineer</title>
 
-  <title>Rabih's Profile</title>
+<style>
+  :root{
+    --bg1:#0c1020;
+    --bg2:#161b35;
+    --line:rgba(255,255,255,0.10);
+    --cyan:#6fe3ff;
+    --purple:#b795ff;
+    --green:#7cf0b0;
+    --amber:#ffd27a;
+    --pink:#ff9ad1;
+    --text:#eef1ff;
+    --muted:#8d97c0;
+  }
+  *{box-sizing:border-box;}
+  html,body{
+    margin:0;padding:0;height:100%;
+    background:
+      radial-gradient(1100px 650px at 10% -10%, rgba(183,149,255,0.14), transparent 60%),
+      radial-gradient(900px 600px at 95% 5%, rgba(111,227,255,0.10), transparent 55%),
+      linear-gradient(180deg, var(--bg1), var(--bg2));
+    background-attachment:fixed;
+    color:var(--text);
+    font-family:'Inter','Helvetica Neue',Arial,sans-serif;
+  }
+  body{position:relative; overflow:hidden;}
 
-  <link href="./assets/style/main.3f6952e4.css" rel="stylesheet">
+  .orb{position:fixed; border-radius:50%; filter:blur(50px); opacity:0.3; z-index:0; pointer-events:none;}
+  .orb1{width:340px;height:340px; background:var(--purple); top:-110px; left:-90px; animation:float1 16s ease-in-out infinite;}
+  .orb2{width:260px;height:260px; background:var(--cyan); bottom:-70px; right:-50px; animation:float2 20s ease-in-out infinite;}
+  @keyframes float1{0%,100%{transform:translate(0,0);}50%{transform:translate(35px,25px);}}
+  @keyframes float2{0%,100%{transform:translate(0,0);}50%{transform:translate(-25px,-35px);}}
+
+  .topbar{
+    position:relative; z-index:10;
+    display:grid;
+    grid-template-columns:1fr auto 1fr;
+    align-items:center;
+    padding:14px 22px 6px;
+    flex:0 0 auto;
+  }
+  .brand{
+    font-size:12.5px; letter-spacing:0.4px; font-weight:600;
+    display:flex; align-items:center; gap:8px; color:var(--text);
+  }
+  .brand .dot{
+    width:7px;height:7px;border-radius:50%; background:var(--green);
+    box-shadow:0 0 9px var(--green); animation:pulse-dot 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.45;transform:scale(0.7);}}
+  .brand .role{color:var(--muted); font-weight:400; font-size:11px;}
+  .hello{
+    grid-column:2;
+    font-size:13px; color:var(--text); text-align:center; display:flex; align-items:center; gap:7px;
+    justify-self:center;
+  }
+  .hello .wave{font-size:16px; display:inline-block; animation:wave 2.4s ease-in-out infinite; transform-origin:70% 70%;}
+  @keyframes wave{0%,100%{transform:rotate(0deg);}15%{transform:rotate(14deg);}30%{transform:rotate(-8deg);}45%{transform:rotate(14deg);}60%{transform:rotate(-4deg);}75%{transform:rotate(10deg);}}
+
+  body.app{
+    display:flex; flex-direction:column; height:100vh;
+  }
+
+  .main{
+    position:relative; z-index:1;
+    display:flex; flex-direction:column;
+    flex:1 1 auto;
+    min-height:0;
+    padding:4px 22px 0;
+    max-width:1360px;
+    width:100%;
+    margin:0 auto;
+  }
+
+  /* ---------- GRAPH (top, full width) ---------- */
+  .graph-wrap{
+    position:relative;
+    width:100%;
+    flex:1 1 auto;
+    min-height:360px;
+  }
+  svg.links-svg{position:absolute; inset:0; width:100%; height:100%; overflow:visible;}
+  svg.links-svg path.lnk{fill:none; stroke:rgba(255,255,255,0.12); stroke-width:1.3;}
+  svg.links-svg path.lnk.active{
+    stroke:url(#gradFlow); stroke-width:2.2;
+    filter:drop-shadow(0 0 7px rgba(111,227,255,0.6));
+  }
+  svg.links-svg path.proto{
+    fill:none; stroke-width:1.5; stroke-dasharray:5 6;
+    animation:dashmove 2.2s linear infinite;
+  }
+  path.proto.a2a{stroke:rgba(255,154,209,0.4);}
+  path.proto.mcp{stroke:rgba(124,240,176,0.4);}
+  path.proto.active{
+    stroke:url(#gradFlow) !important;
+    stroke-width:2.2; animation:none;
+    filter:drop-shadow(0 0 7px rgba(111,227,255,0.6));
+  }
+  @keyframes dashmove{to{stroke-dashoffset:-22;}}
+
+  .packet{
+    position:absolute; width:8px;height:8px;border-radius:50%;
+    background:var(--cyan); box-shadow:0 0 9px var(--cyan), 0 0 18px var(--cyan);
+    opacity:0; pointer-events:none; z-index:6;
+  }
+
+  .node{
+    position:absolute;
+    width:140px;
+    padding:11px 12px 9px;
+    background:linear-gradient(155deg, rgba(255,255,255,0.07), rgba(255,255,255,0.02));
+    border:1px solid var(--line);
+    border-radius:20px 14px 20px 14px;
+    text-align:center;
+    backdrop-filter: blur(8px);
+    box-shadow:0 8px 26px -14px rgba(0,0,0,0.6);
+    transition: box-shadow .3s, border-color .3s, transform .3s;
+    z-index:3;
+    animation:drift 10s ease-in-out infinite;
+  }
+  .node:nth-of-type(odd){animation-duration:12s;}
+  @keyframes drift{0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);}}
+
+  /* applied via JS on cramped viewports so the vertical-stack fallback always
+     fits without any node overlapping its neighbor (no transform is used
+     here since the drift keyframe animation would override an inline
+     transform style) */
+  .node.compact{
+    width:108px; padding:7px 8px 6px; border-radius:14px 10px 14px 10px;
+    animation:none;
+  }
+  .node.compact .icon-wrap{width:20px; height:20px; margin-bottom:3px;}
+  .node.compact .agent-ring-wrap{width:40px; height:40px;}
+  .node.compact .label{font-size:9px;}
+  .node.compact .sub{font-size:7.5px;}
+  .node.compact .node-log{font-size:7.5px; min-height:16px; margin-top:3px;}
+
+  .node .icon-wrap{
+    width:30px; height:30px; margin:0 auto 5px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .node .icon-wrap svg{width:100%; height:100%; display:block; filter:drop-shadow(0 0 6px var(--accent, var(--cyan)));}
+  .node .label{font-size:11px; font-weight:700; letter-spacing:0.3px; color:var(--text);}
+  .node .sub{font-size:9px; color:var(--muted); margin-top:2px;}
+  .node-log{
+    margin-top:6px; font-size:9px; line-height:1.4;
+    min-height:26px; color:var(--accent, var(--cyan));
+    text-align:left; opacity:0.95;
+  }
+  .node-log .log-line{opacity:0; animation:logIn .25s forwards;}
+  @keyframes logIn{to{opacity:1;}}
+
+  .node.active{
+    border-color: var(--accent, var(--cyan));
+    box-shadow:0 0 0 1px var(--accent, var(--cyan)) inset, 0 0 26px -6px var(--accent, var(--cyan));
+    animation-play-state: paused;
+    transform: translateY(-2px) scale(1.04);
+  }
+
+  #node-you    { --accent: var(--green); }
+  #node-agent  { --accent: var(--purple); border-radius:50%; padding:26px 10px; }
+  #node-agent:not(.compact){ width:192px; min-height:192px; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  #node-agent.compact{ padding:10px 6px; }
+  #node-llm    { --accent: var(--cyan); }
+  #node-tool   { --accent: #8bffa0; }
+  #node-certs  { --accent: var(--pink); }
+  #node-memory { --accent: var(--amber); }
+  #node-kb     { --accent: var(--pink); }
+
+  /* small pill-shaped satellite nodes for memory / knowledge-base, branching
+     off the MCP Tool node rather than the main agent hub */
+  .node.mini{
+    width:94px; padding:7px 8px 6px; border-radius:14px 10px 14px 10px;
+  }
+  .node.mini .icon-wrap{width:18px; height:18px; margin-bottom:3px;}
+  .node.mini .label{font-size:9px;}
+  .node.mini .sub{font-size:7px;}
+  .node.mini .node-log{font-size:7px; min-height:14px; margin-top:3px;}
+
+  /* central planning status: the agent's sub-label doubles as a live status
+     line (e.g. "planning: Intro" / "loop complete → replying"), replacing
+     the idle "orchestrator loop" text while the pipeline is running */
+  #node-agent .sub{ transition:color .2s; min-height:12px; }
+  #node-agent.active .sub{ color:var(--purple); font-weight:600; }
+
+  /* ---------- Primary Agent: animated circular loop ---------- */
+  #node-agent{ text-align:center; }
+  .agent-ring-wrap{
+    position:relative; width:76px; height:76px; margin:0 auto 8px;
+  }
+  .agent-ring-wrap svg{width:100%; height:100%; display:block;}
+  .agent-ring-wrap .ring-bg{
+    fill:none; stroke:rgba(255,255,255,0.08); stroke-width:4;
+  }
+  .agent-ring-wrap .ring-spin{
+    fill:none; stroke:url(#gradFlow); stroke-width:4; stroke-linecap:round;
+    stroke-dasharray:70 200;
+    transform-origin:50% 50%;
+    animation:ringspin 2.6s linear infinite;
+  }
+  @keyframes ringspin{to{transform:rotate(360deg);}}
+  .agent-ring-wrap .core{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    font-size:20px;
+  }
+  .node.active .agent-ring-wrap .ring-spin{ animation-duration:0.9s; filter:drop-shadow(0 0 7px var(--purple)); }
+
+  /* ---------- LLM: brain shape ---------- */
+  #node-llm .icon-wrap svg path, #node-llm .icon-wrap svg circle{
+    stroke:var(--cyan);
+  }
+  .node.active#node-llm .icon-wrap{ animation:brainPulse 1s ease-in-out infinite; }
+  @keyframes brainPulse{0%,100%{transform:scale(1);}50%{transform:scale(1.12);}}
+
+  .proto-badge{
+    position:absolute;
+    font-size:8.5px; letter-spacing:0.8px; font-weight:700;
+    padding:2px 7px; border-radius:20px;
+    z-index:4; white-space:nowrap;
+  }
+  .proto-badge.a2a{color:var(--pink); background:rgba(255,154,209,0.12); border:1px solid rgba(255,154,209,0.3);}
+  .proto-badge.mcp{color:#8bffa0; background:rgba(124,240,176,0.12); border:1px solid rgba(124,240,176,0.3);}
+
+  /* floating info cards */
+  .info-card{
+    position:absolute;
+    width:176px;
+    padding:9px 11px;
+    border-radius:14px;
+    font-size:9px; color:var(--muted);
+    line-height:1.45;
+    z-index:3;
+    backdrop-filter: blur(6px);
+  }
+  .info-card .card-title{
+    font-weight:700; font-size:9px; letter-spacing:0.3px;
+    margin-bottom:4px; display:flex; align-items:center; gap:5px;
+  }
+  .info-card ul{margin:3px 0 0; padding-left:13px;}
+  .info-card li{margin-bottom:2px;}
+
+  .mcp-card{
+    background:linear-gradient(155deg, rgba(124,240,176,0.10), rgba(255,255,255,0.02));
+    border:1px solid rgba(124,240,176,0.3);
+  }
+  .mcp-card .card-title{color:#8bffa0;}
+
+  .certs-card{
+    background:linear-gradient(155deg, rgba(255,154,209,0.10), rgba(255,255,255,0.02));
+    border:1px solid rgba(255,154,209,0.35);
+    font-family: 'SFMono-Regular', Menlo, Consolas, monospace;
+  }
+  .certs-card .card-title{color:var(--pink); font-family:'Inter',sans-serif;}
+  .certs-card pre{margin:4px 0 0; font-size:8.5px; line-height:1.5; white-space:pre-wrap; color:var(--muted);}
+  .certs-card .jk{color:#8bbcff;}
+  .certs-card .jv{color:#ffd27a;}
+  .certs-card .js{color:#7cf0b0;}
+
+  /* ---------- CHATBOX (bottom dock, embedded in background) ---------- */
+  .chat-dock{
+    position:relative; z-index:5;
+    flex:0 0 auto;
+    width:100%;
+    max-width:1360px;
+    margin:0 auto;
+    padding:10px 22px 16px;
+  }
+  .chat-panel{
+    display:flex; flex-direction:column;
+    max-height:40vh;
+    background:linear-gradient(180deg, rgba(111,227,255,0.05), rgba(183,149,255,0.03) 60%, transparent);
+    border-top:1px solid rgba(255,255,255,0.08);
+    border-radius:0;
+    padding:10px 4px 0;
+    box-shadow:none;
+    -webkit-mask-image:linear-gradient(180deg, transparent, black 18px);
+    mask-image:linear-gradient(180deg, transparent, black 18px);
+  }
+  /* AG-UI events card docks in the graph's right-hand column, alongside the
+     MCP tool list and A2A certs card, instead of taking up chat space */
+  .agui-card{
+    background:linear-gradient(155deg, rgba(111,227,255,0.10), rgba(255,255,255,0.02));
+    border:1px solid rgba(111,227,255,0.3);
+  }
+  .agui-card .card-title{color:var(--cyan);}
+  .agui-strip{
+    display:flex; flex-direction:column; align-items:stretch; gap:5px;
+    font-size:9px; color:var(--muted);
+    min-height:16px; max-height:150px; overflow-y:auto;
+  }
+  .agui-strip::-webkit-scrollbar{width:4px;}
+  .agui-strip::-webkit-scrollbar-thumb{background:var(--line); border-radius:4px;}
+  .agui-strip .agui-chip{
+    display:inline-flex; align-items:center; gap:5px;
+    padding:3px 8px; border-radius:9px;
+    background:rgba(255,255,255,0.05); border:1px solid var(--line);
+    opacity:0; animation:chipIn .25s forwards;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+  .agui-strip .agui-chip.done{color:var(--green); border-color:rgba(124,240,176,0.35); background:rgba(124,240,176,0.08);}
+  .agui-strip .agui-chip.run{color:var(--cyan); border-color:rgba(111,227,255,0.35); background:rgba(111,227,255,0.08);}
+  .agui-strip .agui-chip .spin{
+    flex:0 0 auto;
+    width:7px;height:7px;border-radius:50%;
+    border:1.5px solid currentColor; border-top-color:transparent;
+    animation:spin .7s linear infinite;
+  }
+  @keyframes spin{to{transform:rotate(360deg);}}
+  @keyframes chipIn{to{opacity:1;}}
+
+  .chat-messages{
+    flex:1; overflow-y:auto; margin-bottom:10px; padding:2px 4px 2px 2px;
+    min-height:0;
+  }
+  .chat-messages::-webkit-scrollbar{width:5px;}
+  .chat-messages::-webkit-scrollbar-thumb{background:var(--line); border-radius:4px;}
+  .msg{display:flex; gap:9px; margin-bottom:11px; font-size:12px; line-height:1.55;}
+  .msg .who{
+    flex:0 0 auto; width:24px; height:24px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; font-size:11px;
+  }
+  .msg.user .who{background:rgba(255,255,255,0.08);}
+  .msg.assistant .who{background:rgba(111,227,255,0.14); color:var(--cyan);}
+  .msg .bubble{
+    background:rgba(255,255,255,0.03); border:1px solid var(--line);
+    border-radius:13px; padding:8px 12px; max-width:90%;
+  }
+  .msg.assistant .bubble{border-color:rgba(111,227,255,0.2);}
+  .msg .bubble ul{margin:6px 0 0; padding-left:16px;}
+  .msg .bubble li{margin-bottom:3px; opacity:0; animation:liIn .3s forwards;}
+  @keyframes liIn{to{opacity:1;}}
+  .cursor-blink{
+    display:inline-block; width:6px; height:11px; background:var(--cyan);
+    margin-left:2px; vertical-align:-1px; animation:blink 0.9s steps(1) infinite;
+  }
+  @keyframes blink{50%{opacity:0;}}
+
+  /* MCP-generated bar chart inside chat bubble */
+  .chart-card{
+    margin-top:8px; padding:9px 10px 6px;
+    background:rgba(124,240,176,0.05);
+    border:1px solid rgba(124,240,176,0.25);
+    border-radius:12px;
+  }
+  .chart-card .chart-title{
+    font-size:9.5px; font-weight:700; color:#8bffa0;
+    display:flex; align-items:center; gap:5px; margin-bottom:8px;
+  }
+  .chart-bars{display:flex; align-items:flex-end; gap:10px; height:84px; padding:0 2px;}
+  .chart-bar-col{flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%;}
+  .chart-bar{
+    width:100%; max-width:26px; border-radius:5px 5px 2px 2px;
+    background:linear-gradient(180deg, var(--cyan), var(--purple));
+    height:0; transition:height .7s cubic-bezier(.2,.9,.3,1);
+    box-shadow:0 0 10px -2px rgba(111,227,255,0.6);
+  }
+  .chart-bar-label{font-size:7.5px; color:var(--muted); margin-top:4px; text-align:center; line-height:1.2;}
+  .chart-bar-val{font-size:8px; color:var(--text); margin-bottom:3px; opacity:0; animation:liIn .3s forwards;}
+
+  /* work-experience timeline inside a chat bubble */
+  .timeline{
+    margin-top:8px; padding-left:4px;
+  }
+  .timeline-item{
+    position:relative;
+    display:flex; gap:10px;
+    padding-bottom:14px;
+    padding-left:4px;
+    opacity:0; animation:liIn .35s forwards;
+  }
+  .timeline-item:last-child{padding-bottom:0;}
+  .timeline-item:not(:last-child)::before{
+    content:'';
+    position:absolute; left:7px; top:14px; bottom:-2px;
+    width:1.5px;
+    background:linear-gradient(180deg, rgba(111,227,255,0.5), rgba(183,149,255,0.15));
+  }
+  .timeline-dot{
+    flex:0 0 auto; width:15px; height:15px; margin-top:1px;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 35%, var(--cyan), var(--purple));
+    box-shadow:0 0 8px -1px rgba(111,227,255,0.7);
+  }
+  .timeline-content{flex:1; min-width:0;}
+  .timeline-period{font-size:9.5px; font-weight:700; letter-spacing:0.3px; color:var(--cyan);}
+  .timeline-company{font-size:11.5px; font-weight:700; color:var(--text); margin-top:1px;}
+  .timeline-role{font-size:10.5px; color:var(--muted); margin-top:2px; line-height:1.4;}
+
+  .chip-hint{font-size:10.5px; color:var(--muted); margin-bottom:8px; text-align:center;}
+  .suggestions{display:flex; flex-wrap:wrap; justify-content:center; gap:7px;}
+  .suggestions button{
+    background:rgba(255,255,255,0.05);
+    border:1px solid var(--line); color:var(--text);
+    padding:7px 13px; border-radius:18px;
+    font-size:11px; cursor:pointer; font-family:inherit;
+    transition:all .2s;
+    display:flex; align-items:center; gap:5px;
+  }
+  .suggestions button .emoji{font-size:12px;}
+  .suggestions button:hover{
+    border-color:var(--cyan); color:var(--cyan);
+    box-shadow:0 0 14px -4px var(--cyan); transform:translateY(-2px);
+  }
+  .suggestions button:disabled{opacity:0.4; cursor:not-allowed; transform:none; box-shadow:none;}
+
+  @media (max-width: 980px){
+    .main{flex:1 1 auto;}
+    body.app{height:auto; overflow:auto;}
+    .graph-wrap{height:460px; min-height:460px;}
+    .chat-panel{max-height:none;}
+  }
+</style>
 </head>
+<body class="app">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
 
-<body class="minimal">
-  <div id="site-border-left"></div>
-  <div id="site-border-right"></div>
-  <div id="site-border-top"></div>
-  <div id="site-border-bottom"></div>
-  <!-- Add your content of header -->
-  <header>
-    <nav class="navbar  navbar-fixed-top navbar-inverse">
-      <div class="container">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse"
-          aria-expanded="false">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
+  <div class="topbar">
+    <div class="brand"><span class="dot"></span>Rabih Abou Fakher<span class="role">&nbsp;· Agentic AI Engineer</span></div>
+    <div class="hello"><span class="wave">👋</span> Hey there, glad you stopped by!</div>
+  </div>
 
-        <div class="collapse navbar-collapse" id="navbar-collapse">
-          <ul class="nav navbar-nav ">
-            <li><a href="./index.html" title=""><b>Home</b></a></li>
-            <li><a href="./projects.html" title="">Projects</a></li>
-            <li><a href="./certification.html" title="">Certification</a></li>
-            <li><a href="./blog.html" title="">Blog</a></li>
-            <li><a href="./api-playground.html" title="">API Playground</a></li>
-            <li><a href="./contact.html" title="">Contact</a></li>
-          </ul>
+  <div class="main">
+    <div class="graph-wrap" id="graphWrap">
+      <svg class="links-svg" id="linksSvg">
+        <defs>
+          <linearGradient id="gradFlow" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#6fe3ff"/>
+            <stop offset="50%" stop-color="#b795ff"/>
+            <stop offset="100%" stop-color="#ff9ad1"/>
+          </linearGradient>
+        </defs>
+        <path class="lnk" id="path-you-agent"></path>
+        <path class="lnk" id="path-agent-you"></path>
+        <path class="lnk" id="path-agent-llm"></path>
+        <path class="lnk" id="path-llm-agent"></path>
+        <path class="lnk proto mcp" id="path-agent-tool"></path>
+        <path class="lnk proto mcp" id="path-tool-agent"></path>
+        <path class="lnk proto a2a" id="path-agent-certs"></path>
+        <path class="lnk proto a2a" id="path-certs-agent"></path>
+        <path class="lnk proto mcp" id="path-tool-memory"></path>
+        <path class="lnk proto mcp" id="path-memory-tool"></path>
+        <path class="lnk proto mcp" id="path-tool-kb"></path>
+        <path class="lnk proto mcp" id="path-kb-tool"></path>
+      </svg>
 
+      <div class="node" id="node-you">
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="var(--green)" stroke-width="1.6"/><path d="M4 20c0-3.5 3.5-6 8-6s8 2.5 8 6" stroke="var(--green)" stroke-width="1.6" stroke-linecap="round"/></svg>
         </div>
+        <div class="label">You</div>
+        <div class="sub">asking a question</div>
+        <div class="node-log" id="log-you"></div>
       </div>
-    </nav>
-  </header>
-  <!-- Add your site or app content here -->
-  <!-- <div class="hero-full-container background-image-container white-text-container" style="background-image: url('./assets/images/black-background.jpg')"> -->
-  <div class="hero-full-container white-text-container" style="background-color:black;">
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="hero-full-wrapper">
-            <div class="text-content">
-              <h1>Hello,<br>
-                <span id="typed-strings">
-                  <span>I'm Rabih Abou Fakher</span>
-                  <span>Software Engineer & Data Analyst</span>
-                </span>
-                <span id="typed"></span>
-              </h1>
-              </br>
-            </div>
-          </div>
+
+      <div class="node" id="node-agent">
+        <div class="agent-ring-wrap">
+          <svg viewBox="0 0 58 58">
+            <circle class="ring-bg" cx="29" cy="29" r="24"></circle>
+            <circle class="ring-spin" cx="29" cy="29" r="24"></circle>
+          </svg>
+          <div class="core">🤖</div>
         </div>
+        <div class="label">Primary Agent</div>
+        <div class="sub" id="agentStatus">orchestrator loop</div>
+        <div class="node-log" id="log-agent"></div>
+      </div>
+
+      <div class="node" id="node-llm">
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M10 4.2c-1.6-.6-3.6.2-4.2 1.9-1.6.3-2.6 1.8-2.3 3.3-1 .8-1.3 2.3-.6 3.5-.5 1.3 0 2.8 1.2 3.5.1 1.6 1.4 2.8 3 2.7.6 1 1.9 1.4 3 .9.6.4 1.3.6 1.9.5V4.2c-.6-.3-1.3-.3-2 0Z" stroke="var(--cyan)" stroke-width="1.3" stroke-linejoin="round"/>
+            <path d="M14 4.2c1.6-.6 3.6.2 4.2 1.9 1.6.3 2.6 1.8 2.3 3.3 1 .8 1.3 2.3.6 3.5.5 1.3 0 2.8-1.2 3.5-.1 1.6-1.4 2.8-3 2.7-.6 1-1.9 1.4-3 .9-.6.4-1.3.6-1.9.5V4.2c.6-.3 1.3-.3 2 0Z" stroke="var(--cyan)" stroke-width="1.3" stroke-linejoin="round"/>
+            <path d="M10 8.5c.8.3 1.4 1 1.4 1.9M14 8.5c-.8.3-1.4 1-1.4 1.9M8 13c.7.4 1.6.4 2.3 0M16 13c-.7.4-1.6.4-2.3 0" stroke="var(--cyan)" stroke-width="1" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="label">LLM</div>
+        <div class="sub">reasoning engine</div>
+        <div class="node-log" id="log-llm"></div>
+      </div>
+
+      <div class="node" id="node-tool">
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M14.7 6.3a3.5 3.5 0 0 0-4.6 4.2L4 16.6V20h3.4l6.1-6.1a3.5 3.5 0 0 0 4.2-4.6l-2.5 2.5-2-2 2.5-2.5Z" stroke="#8bffa0" stroke-width="1.4" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="label">MCP Tool</div>
+        <div class="sub">external action</div>
+        <div class="node-log" id="log-tool"></div>
+      </div>
+
+      <div class="node mini" id="node-memory">
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 3c-1.8 0-3 1.2-3.4 2.6C6.9 6 6 7.2 6 8.6c0 .7.2 1.3.5 1.8-.8.6-1.2 1.6-1 2.6-.6.6-.9 1.5-.7 2.4.3 1.3 1.5 2.2 2.8 2.1.3 1 1.3 1.7 2.4 1.5V3Z" stroke="var(--amber)" stroke-width="1.2" stroke-linejoin="round"/><path d="M12 3c1.8 0 3 1.2 3.4 2.6 1.7.4 2.6 1.6 2.6 3 0 .7-.2 1.3-.5 1.8.8.6 1.2 1.6 1 2.6.6.6.9 1.5.7 2.4-.3 1.3-1.5 2.2-2.8 2.1-.3 1-1.3 1.7-2.4 1.5V3Z" stroke="var(--amber)" stroke-width="1.2" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="label">Memory</div>
+        <div class="sub">context recall</div>
+        <div class="node-log" id="log-memory"></div>
+      </div>
+
+      <div class="node mini" id="node-kb">
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 5.5C4 4.7 4.7 4 5.5 4H11v16H5.5c-.8 0-1.5-.7-1.5-1.5v-13Z" stroke="var(--pink)" stroke-width="1.2" stroke-linejoin="round"/><path d="M20 5.5c0-.8-.7-1.5-1.5-1.5H13v16h5.5c.8 0 1.5-.7 1.5-1.5v-13Z" stroke="var(--pink)" stroke-width="1.2" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="label">Knowledge Base</div>
+        <div class="sub">info.pdf</div>
+        <div class="node-log" id="log-kb"></div>
+      </div>
+
+      <div class="node" id="node-certs">
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.2 4.5 5 .7-3.6 3.5.9 5-4.5-2.4L7.5 15.7l.9-5L4.8 7.2l5-.7L12 2Z" stroke="var(--pink)" stroke-width="1.3" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="label">Certs Registry Agent</div>
+        <div class="sub">peer agent · A2A</div>
+        <div class="node-log" id="log-certs"></div>
+      </div>
+
+      <div class="proto-badge mcp" id="mcpBadge">MCP</div>
+      <div class="proto-badge a2a" id="a2aBadge">A2A</div>
+
+      <div class="info-card mcp-card" id="mcpCard">
+        <div class="card-title">🔧 MCP tools exposed</div>
+        <ul>
+          <li>memory.recall()</li>
+          <li>search_knowledge_base()</li>
+          <li>generate_bar_chart()</li>
+        </ul>
+      </div>
+
+      <div class="info-card certs-card" id="certsCard">
+        <div class="card-title">🏆 Certs Registry Agent</div>
+        <pre>{
+  <span class="jk">"name"</span>: <span class="js">"certs-registry"</span>,
+  <span class="jk">"protocol"</span>: <span class="js">"A2A"</span>,
+  <span class="jk">"capabilities"</span>: [
+    <span class="js">"verify_certification"</span>,
+    <span class="js">"issue_date_lookup"</span>
+  ],
+  <span class="jk">"status"</span>: <span class="js">"online"</span>
+}</pre>
+      </div>
+
+      <div class="info-card agui-card" id="aguiCard">
+        <div class="card-title">⚡ AG-UI protocol events</div>
+        <div class="agui-strip" id="aguiStrip"></div>
       </div>
     </div>
   </div>
 
+  <div class="chat-dock">
+    <div class="chat-panel">
+      <div class="chat-messages" id="chatMessages"></div>
+      <div class="chip-hint">choose what you'd like to know</div>
+      <div class="suggestions" id="suggestions">
+        <button data-q="work"><span class="emoji">💼</span> Work Experience</button>
+        <button data-q="skills"><span class="emoji">🧠</span> Skills</button>
+        <button data-q="certs"><span class="emoji">🏆</span> Certifications</button>
+        <button data-q="education"><span class="emoji">🎓</span> Education</button>
+      </div>
+    </div>
+  </div>
   <script>
-    document.addEventListener("DOMContentLoaded", function (event) {
-      type();
-      movingBackgroundImage();
+  (function(){
+    "use strict";
+
+    // ---------- radial layout: agent is the hub, satellites fan out on spokes ----------
+    // "certs" is not part of the angular fan — it docks in a fixed spot
+    // directly above the agent so the chat dock below keeps more vertical
+    // room. Memory + knowledge-base are small mini-nodes that branch off the
+    // MCP Tool node rather than fanning out from the agent hub.
+    var youPct   = {x:0.10, y:0.50};
+    var agentPct = {x:0.36, y:0.50};
+    // only "llm" fans out on a spoke from the agent now — "tool" docks
+    // below it (offset sideways, not directly underneath) so Memory/KB
+    // have a predictable anchor to branch off to the right of, and the
+    // llm's own appended log text has room without colliding with tool
+    var fanOrder  = ['llm'];
+    var fanAngles = [-54]; // degrees, 0 = pointing right — steeper = higher up
+    // ordering used by the vertical-stack and single-column fallbacks, where
+    // every node (including certs + the memory/kb minis) is simply placed
+    // one after another — memory/kb sit right after tool since they're its
+    // MCP-call children
+    var satelliteOrder = ['llm','tool','memory','kb','certs'];
+
+    var wrap = document.getElementById('graphWrap');
+    var nodes = {
+      you: document.getElementById('node-you'),
+      agent: document.getElementById('node-agent'),
+      llm: document.getElementById('node-llm'),
+      tool: document.getElementById('node-tool'),
+      memory: document.getElementById('node-memory'),
+      kb: document.getElementById('node-kb'),
+      certs: document.getElementById('node-certs')
+    };
+    var mcpCard = document.getElementById('mcpCard');
+    var certsCard = document.getElementById('certsCard');
+    var aguiCard = document.getElementById('aguiCard');
+    var mcpBadge = document.getElementById('mcpBadge');
+    var a2aBadge = document.getElementById('a2aBadge');
+
+    function placeAt(el, cx, cy, clampW, clampH, margin){
+      var nw = el.offsetWidth || 140;
+      var nh = el.offsetHeight || 84;
+      if (clampW && clampH){
+        margin = margin || 0;
+        var minX = nw/2 + margin, maxX = clampW - nw/2 - margin;
+        var minY = nh/2 + margin, maxY = clampH - nh/2 - margin;
+        cx = Math.max(minX, Math.min(cx, maxX));
+        cy = Math.max(minY, Math.min(cy, maxY));
+      }
+      el.style.left = (cx - nw/2) + 'px';
+      el.style.top = (cy - nh/2) + 'px';
+    }
+
+    // below this width there just isn't enough horizontal room for "you" and
+    // "agent" to sit side by side next to a satellite column without
+    // crowding, so the whole graph switches to a single vertical column
+    var SINGLE_COLUMN_BREAKPOINT = 440;
+
+    function positionNodes(){
+      var w = wrap.clientWidth;
+      var h = wrap.clientHeight;
+      var margin = 10;
+
+      if (w < SINGLE_COLUMN_BREAKPOINT){
+        layoutSingleColumn(w);
+        return;
+      }
+      wrap.style.minHeight = '';
+
+      // on narrow viewports, shrink "you" and "agent" too (via the same
+      // .compact class) so their combined width never exceeds the wrap and
+      // they can't be pushed into each other
+      nodes.you.classList.remove('compact');
+      nodes.agent.classList.remove('compact');
+      if (w < 560){
+        nodes.you.classList.add('compact');
+        nodes.agent.classList.add('compact');
+      }
+
+      // compute an explicit minimum horizontal gap between "you" and
+      // "agent" centers from their real current widths, and nudge the
+      // agent's x-position rightward if the fixed percentages would be
+      // too tight for the current viewport — guarantees no overlap at any
+      // width instead of relying on percentages tuned for one size
+      var youW = nodes.you.offsetWidth, agentW = nodes.agent.offsetWidth;
+      var minGap = youW/2 + agentW/2 + 24;
+      var youCx = Math.max(youW/2 + 4, youPct.x * w);
+      var agentCx0 = Math.max(agentPct.x * w, youCx + minGap);
+      placeAt(nodes.you, youCx, youPct.y * h, w, h, 4);
+      placeAt(nodes.agent, agentCx0, agentPct.y * h, w, h, 4);
+
+      var agentCx = nodes.agent.offsetLeft + nodes.agent.offsetWidth/2;
+      var agentCy = nodes.agent.offsetTop + nodes.agent.offsetHeight/2;
+
+      // start every layout pass from the full-size nodes; only switch to the
+      // .compact class (smaller real CSS box, not a transform scale) if even
+      // the vertical-stack fallback can't fit them all. Memory/kb minis keep
+      // their own small .mini sizing regardless (they're already tiny).
+      fanOrder.forEach(function(key){ nodes[key].classList.remove('compact'); });
+      nodes.certs.classList.remove('compact');
+      var nodeW = nodes[fanOrder[0]].offsetWidth;
+      var nodeH = nodes[fanOrder[0]].offsetHeight;
+
+      // largest radius that still fits every fan satellite fully inside the wrap
+      var maxRadiusW = (w - agentCx) - nodeW/2 - margin;
+      var maxRadiusH = Math.min(agentCy, h - agentCy) - nodeH/2 - margin;
+      var fitRadius = Math.max(0, Math.min(maxRadiusW, maxRadiusH, 300));
+
+      // smallest radius needed so adjacent fan satellites don't overlap each
+      // other, based on chord length between two points on the arc (uses the
+      // tightest angular gap between any two neighboring satellites) — with
+      // only one fan satellite (llm) there's no adjacent-angle constraint
+      var minRadius = 0;
+      if (fanAngles.length > 1){
+        var minAngleGap = Infinity;
+        for (var ai = 1; ai < fanAngles.length; ai++){
+          minAngleGap = Math.min(minAngleGap, fanAngles[ai] - fanAngles[ai-1]);
+        }
+        var angleStepRad = minAngleGap * Math.PI / 180;
+        minRadius = (nodeW + 24) / (2 * Math.sin(angleStepRad / 2));
+      }
+
+      // certs needs enough clearance above the agent too — reuse the agent's
+      // own half-height plus its own half-height plus a margin as the
+      // required vertical clearance
+      var certsH = nodes.certs.offsetHeight;
+      var agentHalfH = nodes.agent.offsetHeight / 2;
+      var certsClearance = agentHalfH + certsH + 14;
+
+      // Tool docks below and to the side of LLM (offset horizontally, not
+      // directly underneath) so LLM's own appended log lines have room to
+      // grow downward without ever overlapping Tool's box
+      var toolH = nodes.tool.offsetHeight;
+      var toolGapY = 58;
+      var toolOffsetX = 34;
+      var llmNudgeX = 26;
+      var miniW = nodes.memory.offsetWidth;
+      var miniGapX = 12;
+
+      // the docked info-cards (MCP tools / certs / AG-UI) only render in fan
+      // mode, hugging the right edge — make sure there's still enough free
+      // width to their right of the rightmost content (llm fan node, tool's
+      // offset position, or the memory/kb minis to the right of tool,
+      // whichever extends further) before committing to the fan, otherwise
+      // fall back to the stack
+      var cardW = 176;
+      var llmRad = fanAngles[0] * Math.PI / 180;
+      var llmCx = agentCx + Math.cos(llmRad) * fitRadius + llmNudgeX;
+      var llmCy = agentCy + Math.sin(llmRad) * fitRadius;
+      var toolCx = llmCx + toolOffsetX;
+      var toolCy = llmCy + nodeH/2 + toolGapY + toolH/2;
+      var miniRightEdge = toolCx + nodes.tool.offsetWidth/2 + miniGapX + miniW;
+      var rightmostX = Math.max(llmCx + nodeW/2, toolCx + nodes.tool.offsetWidth/2, miniRightEdge);
+      var roomForCards = (w - rightmostX) >= (cardW + 24);
+      var roomBelowForTool = (toolCy + toolH/2 + margin) <= h;
+
+      var usingStackLayout = (fitRadius < minRadius) || (agentCy - certsClearance < margin) || !roomForCards || !roomBelowForTool;
+
+      if (!usingStackLayout){
+        // plenty of room — llm fans out higher up on its spoke, tool docks
+        // below it offset to the side, memory/kb branch off to the right of tool
+        placeAt(nodes.llm, llmCx, llmCy, w, h, margin);
+        placeAt(nodes.tool, toolCx, toolCy, w, h, margin);
+        // certs docks in a fixed spot directly above the agent hub
+        placeAt(nodes.certs, agentCx, agentCy - certsClearance, w, h, margin);
+        // memory/kb mini-nodes branch off to the right of the Tool node
+        placeMiniNodes(w, h, margin);
+      } else {
+        // not enough width/height for a fan without crowding — fall back to
+        // a simple vertical stack to the right of the agent, sized from each
+        // node's real height. If even that overflows the available height,
+        // switch every satellite to the smaller .compact layout and
+        // re-measure, so the stack always fits without overlapping.
+        satelliteOrder.forEach(function(key){ nodes[key].classList.remove('compact'); });
+        nodes.certs.classList.remove('compact');
+        var gapY = 10;
+        function layoutStack(){
+          var heights = satelliteOrder.map(function(key){ return nodes[key].offsetHeight; });
+          var totalH = heights.reduce(function(a,b){ return a+b; }, 0) + gapY * (heights.length - 1);
+          return { heights: heights, totalH: totalH };
+        }
+        var stack = layoutStack();
+        var available = h - margin * 2;
+        if (stack.totalH > available){
+          satelliteOrder.forEach(function(key){ nodes[key].classList.add('compact'); });
+          nodes.certs.classList.add('compact');
+          stack = layoutStack();
+        }
+        var compactNodeW = nodes[fanOrder[0]].offsetWidth;
+        var agentHalfW = nodes.agent.offsetWidth / 2;
+        var stackX = Math.min(w - compactNodeW/2 - margin, agentCx + agentHalfW + compactNodeW/2 + 16);
+        var cursorY = Math.max(margin, (h - stack.totalH) / 2);
+        satelliteOrder.forEach(function(key, i){
+          var hgt = stack.heights[i];
+          var cy = cursorY + hgt/2;
+          placeAt(nodes[key], stackX, cy, w, h, margin);
+          cursorY += hgt + gapY;
+        });
+      }
+
+      // the detail info-cards only have room when the radial fan is active;
+      // on cramped viewports (vertical-stack fallback) there's no safe spot
+      // left for them without risking an overlap, so they're hidden and the
+      // node's own label/sub + protocol badges still carry the information
+      mcpCard.style.display = usingStackLayout ? 'none' : 'block';
+      certsCard.style.display = usingStackLayout ? 'none' : 'block';
+      aguiCard.style.display = usingStackLayout ? 'none' : 'block';
+      if (!usingStackLayout){
+        // dock all three info-cards (MCP tools, A2A certs, AG-UI events) in
+        // a fixed column hugging the far right edge of the wrap — guaranteed
+        // clear of the node arc and of each other
+        function dockCard(card, top){
+          var cardW = card.offsetWidth || 176;
+          card.style.left = Math.max(4, w - cardW - 8) + 'px';
+          card.style.top = top + 'px';
+          return top + card.offsetHeight;
+        }
+        var nextTop = dockCard(mcpCard, 16) + 16;
+        nextTop = dockCard(certsCard, nextTop) + 16;
+        dockCard(aguiCard, nextTop);
+      }
+
+      mcpBadge.style.display = '';
+      a2aBadge.style.display = '';
+      var mcpMid = midpoint(centerOf('agent'), centerOf('tool'));
+      mcpBadge.style.left = (mcpMid.x - 16) + 'px';
+      mcpBadge.style.top = (mcpMid.y - 10) + 'px';
+
+      var a2aMid = midpoint(centerOf('agent'), centerOf('certs'));
+      a2aBadge.style.left = (a2aMid.x - 14) + 'px';
+      a2aBadge.style.top = (a2aMid.y - 10) + 'px';
+
+      drawStaticPaths();
+    }
+
+    // place the small Memory / Knowledge-Base mini-nodes branching off to the
+    // right of the Tool node's already-computed position, stacked vertically
+    // (one above, one below the tool's center) so they never overlap each
+    // other or the tool node — always clamped within the wrap bounds
+    function placeMiniNodes(w, h, margin){
+      var toolCx = nodes.tool.offsetLeft + nodes.tool.offsetWidth/2;
+      var toolCy = nodes.tool.offsetTop + nodes.tool.offsetHeight/2;
+      var miniW = nodes.memory.offsetWidth;
+      var memH = nodes.memory.offsetHeight;
+      var kbH = nodes.kb.offsetHeight;
+      var gapY = 24;
+
+      var sideX = toolCx + nodes.tool.offsetWidth/2 + miniW/2 + 16;
+      // stack memory above and kb below the tool's vertical center, with a
+      // guaranteed gap between them so they can never overlap each other
+      var memCy = toolCy - gapY/2 - memH/2;
+      var kbCy = toolCy + gapY/2 + kbH/2;
+      placeAt(nodes.memory, sideX, memCy, w, h, margin);
+      placeAt(nodes.kb, sideX, kbCy, w, h, margin);
+    }
+
+    // very narrow viewports: stack every node in a single centered column
+    // (you, agent, then all satellites) top to bottom. The graph-wrap grows
+    // tall enough (set via inline minHeight) to fit the whole column with
+    // guaranteed gaps, so nothing can ever overlap.
+    function layoutSingleColumn(w){
+      var allKeys = ['you', 'agent'].concat(satelliteOrder);
+      allKeys.forEach(function(key){ nodes[key].classList.add('compact'); });
+      mcpCard.style.display = 'none';
+      certsCard.style.display = 'none';
+      aguiCard.style.display = 'none';
+
+      var gapY = 12;
+      var cx = w / 2;
+      var cursorY = 14;
+      allKeys.forEach(function(key){
+        var el = nodes[key];
+        var hgt = el.offsetHeight;
+        el.style.left = (cx - el.offsetWidth/2) + 'px';
+        el.style.top = cursorY + 'px';
+        cursorY += hgt + gapY;
+      });
+      var totalH = cursorY - gapY + 14;
+      wrap.style.minHeight = totalH + 'px';
+
+      // hide protocol badges (no room/need in the compact column view)
+      mcpBadge.style.display = 'none';
+      a2aBadge.style.display = 'none';
+
+      drawStaticPaths();
+    }
+
+    function centerOf(key){
+      var el = nodes[key];
+      return { x: el.offsetLeft + el.offsetWidth/2, y: el.offsetTop + el.offsetHeight/2 };
+    }
+    function midpoint(a,b){ return { x:(a.x+b.x)/2, y:(a.y+b.y)/2 }; }
+
+    function curvePath(a, b, bend){
+      bend = bend || 0.5;
+      var dx = (b.x - a.x) * bend;
+      var dy = (b.y - a.y) * 0.12;
+      return "M" + a.x + "," + a.y + " C " + (a.x+dx) + "," + (a.y+dy) + " " + (b.x-dx) + "," + (b.y-dy) + " " + b.x + "," + b.y;
+    }
+
+    var pathDefs = [
+      ["path-you-agent", "you", "agent"],
+      ["path-agent-you", "agent", "you"],
+      ["path-agent-llm", "agent", "llm"],
+      ["path-llm-agent", "llm", "agent"],
+      ["path-agent-tool", "agent", "tool"],
+      ["path-tool-agent", "tool", "agent"],
+      ["path-agent-certs", "agent", "certs"],
+      ["path-certs-agent", "certs", "agent"],
+      ["path-tool-memory", "tool", "memory"],
+      ["path-memory-tool", "memory", "tool"],
+      ["path-tool-kb", "tool", "kb"],
+      ["path-kb-tool", "kb", "tool"]
+    ];
+
+    function drawStaticPaths(){
+      pathDefs.forEach(function(def){
+        var el = document.getElementById(def[0]);
+        el.setAttribute("d", curvePath(centerOf(def[1]), centerOf(def[2])));
+      });
+    }
+
+    window.addEventListener('resize', positionNodes);
+    setTimeout(positionNodes, 30);
+    setTimeout(positionNodes, 400);
+
+    // ---------- per-node logs ----------
+    var logEls = {
+      you: document.getElementById('log-you'),
+      agent: document.getElementById('log-agent'),
+      llm: document.getElementById('log-llm'),
+      tool: document.getElementById('log-tool'),
+      memory: document.getElementById('log-memory'),
+      kb: document.getElementById('log-kb'),
+      certs: document.getElementById('log-certs')
+    };
+    function clearLogs(){ Object.keys(logEls).forEach(function(k){ logEls[k].innerHTML = ''; }); }
+    function logAt(key, text){
+      var el = logEls[key];
+      var line = document.createElement('div');
+      line.className = 'log-line';
+      line.textContent = text;
+      el.appendChild(line);
+    }
+
+    // ---------- chat ----------
+    var chatMessages = document.getElementById('chatMessages');
+    var suggestions = document.getElementById('suggestions');
+    var allChips = suggestions.querySelectorAll('button');
+    var aguiStrip = document.getElementById('aguiStrip');
+
+    function addMessage(role){
+      var msg = document.createElement('div');
+      msg.className = 'msg ' + role;
+      var who = role === 'user' ? '🧑' : '🤖';
+      msg.innerHTML = '<div class="who">' + who + '</div><div class="bubble"></div>';
+      chatMessages.appendChild(msg);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      return msg.querySelector('.bubble');
+    }
+
+    function typeText(bubble, text, speed, cb){
+      var i = 0;
+      bubble.innerHTML = '<span class="txt"></span><span class="cursor-blink"></span>';
+      var txtEl = bubble.querySelector('.txt');
+      var cursor = bubble.querySelector('.cursor-blink');
+      var iv = setInterval(function(){
+        txtEl.textContent += text.charAt(i);
+        i++;
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        if (i >= text.length){
+          clearInterval(iv);
+          if (cursor) cursor.remove();
+          if (cb) cb();
+        }
+      }, speed || 16);
+    }
+
+    // render: intro line typed, then either a bullet list or a timeline
+    // fades in item by item, optionally followed by an MCP-generated chart
+    function renderAnswer(bubble, data, cb){
+      typeText(bubble, data.text, 12, function(){
+        function afterItems(){
+          if (data.chart){
+            renderChart(bubble, data.chart);
+            setTimeout(function(){ if (cb) cb(); }, 700 + data.chart.length * 90);
+          } else if (cb) cb();
+        }
+        if (data.timeline && data.timeline.length){
+          renderTimeline(bubble, data.timeline, afterItems);
+          return;
+        }
+        var bullets = data.bullets;
+        if (!bullets || !bullets.length){ afterItems(); return; }
+        var ul = document.createElement('ul');
+        bubble.appendChild(ul);
+        var idx = 0;
+        function addLi(){
+          if (idx >= bullets.length){ afterItems(); return; }
+          var li = document.createElement('li');
+          li.textContent = bullets[idx];
+          li.style.animationDelay = '0s';
+          ul.appendChild(li);
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+          idx++;
+          setTimeout(addLi, 240);
+        }
+        setTimeout(addLi, 150);
+      });
+    }
+
+    // ---------- work experience timeline ----------
+    function renderTimeline(bubble, items, cb){
+      var tl = document.createElement('div');
+      tl.className = 'timeline';
+      bubble.appendChild(tl);
+      var idx = 0;
+      function addItem(){
+        if (idx >= items.length){ if (cb) cb(); return; }
+        var it = items[idx];
+        var row = document.createElement('div');
+        row.className = 'timeline-item';
+        row.innerHTML =
+          '<div class="timeline-dot"></div>' +
+          '<div class="timeline-content">' +
+            '<div class="timeline-period">' + it.period + '</div>' +
+            '<div class="timeline-company">' + it.company + '</div>' +
+            '<div class="timeline-role">' + it.role + '</div>' +
+          '</div>';
+        tl.appendChild(row);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        idx++;
+        setTimeout(addItem, 260);
+      }
+      setTimeout(addItem, 150);
+    }
+
+    // ---------- MCP-generated bar chart ----------
+    function renderChart(bubble, chartData){
+      var card = document.createElement('div');
+      card.className = 'chart-card';
+      card.innerHTML = '<div class="chart-title">📊 generate_bar_chart() · via MCP</div>';
+      var bars = document.createElement('div');
+      bars.className = 'chart-bars';
+      var maxVal = Math.max.apply(null, chartData.map(function(d){ return d.value; }));
+      chartData.forEach(function(d, i){
+        var col = document.createElement('div');
+        col.className = 'chart-bar-col';
+        var valEl = document.createElement('div');
+        valEl.className = 'chart-bar-val';
+        valEl.textContent = d.value + '%';
+        valEl.style.animationDelay = (0.5 + i*0.1) + 's';
+        var bar = document.createElement('div');
+        bar.className = 'chart-bar';
+        var label = document.createElement('div');
+        label.className = 'chart-bar-label';
+        label.textContent = d.label;
+        col.appendChild(valEl);
+        col.appendChild(bar);
+        col.appendChild(label);
+        bars.appendChild(col);
+        setTimeout(function(){
+          bar.style.height = (d.value / maxVal * 76) + 'px';
+        }, 120 + i * 110);
+      });
+      card.appendChild(bars);
+      bubble.appendChild(card);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    // ---------- AG-UI protocol event strip ----------
+    // Mirrors the AG-UI event spec: RUN_STARTED, STEP progress, TOOL_CALL, RUN_FINISHED
+    function aguiClear(){ aguiStrip.innerHTML = ''; }
+    function aguiEvent(label, state){
+      // state: 'run' (in-progress) or 'done'
+      var chip = document.createElement('span');
+      chip.className = 'agui-chip ' + state;
+      chip.innerHTML = (state === 'run' ? '<span class="spin"></span>' : '✓ ') + label;
+      aguiStrip.appendChild(chip);
+      aguiStrip.scrollTop = aguiStrip.scrollHeight;
+      return chip;
+    }
+    function aguiSettle(chip, label){
+      chip.className = 'agui-chip done';
+      chip.innerHTML = '✓ ' + label;
+    }
+
+    // ---------- node activation ----------
+    function setActive(key){ nodes[key].classList.add('active'); }
+    function clearActive(key){ nodes[key].classList.remove('active'); }
+    function highlightPath(pathId, on){
+      document.getElementById(pathId).classList.toggle('active', !!on);
+    }
+
+    function sendPacket(fromKey, toKey, pathId, duration){
+      return new Promise(function(resolve){
+        highlightPath(pathId, true);
+        var packet = document.createElement('div');
+        packet.className = 'packet';
+        wrap.appendChild(packet);
+        var a = centerOf(fromKey);
+        var b = centerOf(toKey);
+        var start = null;
+        duration = duration || 600;
+        function frame(ts){
+          if (!start) start = ts;
+          var t = Math.min(1, (ts - start) / duration);
+          var ease = t < 0.5 ? 2*t*t : 1 - Math.pow(-2*t+2, 2)/2;
+          packet.style.left = (a.x + (b.x-a.x)*ease) + 'px';
+          packet.style.top = (a.y + (b.y-a.y)*ease) + 'px';
+          packet.style.opacity = (t < 0.08) ? (t/0.08) : (t > 0.9 ? (1-t)/0.1 : 1);
+          if (t < 1){ requestAnimationFrame(frame); }
+          else { packet.remove(); highlightPath(pathId, false); resolve(); }
+        }
+        requestAnimationFrame(frame);
+      });
+    }
+    function wait(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
+
+    // ---------- knowledge base content (from info.pdf) ----------
+    var kb = {
+      intro: {
+        text: "Hi! I'm a full-stack engineering lead passionate about architecting and scaling production-grade Agentic AI.",
+        bullets: [
+          "M.Sc. in Data Science & AWS Solutions Architect certified",
+          "Track record shipping secure enterprise solutions",
+          "Focus areas: health tech and cybersecurity"
+        ],
+        // lightweight path: skip memory + KB roundtrip, straight reasoning
+        flow: ['llm'],
+        chart: null
+      },
+      skills: {
+        text: "Here's a snapshot of my toolkit:",
+        bullets: [
+          "Agentic AI — MCP & tool calling, contextual memory, deployed agents",
+          "Cloud — AWS (Architect Assoc.), MS Graph API, Docker/microservices",
+          "APIs — REST, GraphQL, gRPC, JSON-RPC, Kafka",
+          "Services — Python, Go, Node.js, Java, Kotlin, Spring",
+          "Web/Mobile — React, Vue.js, Flutter",
+          "Data & Ops — PostgreSQL, MongoDB, Grafana, Splunk, Jenkins"
+        ],
+        flow: ['memory', 'kb', 'llm', 'tool'],
+        chart: [
+          { label:'Agentic AI', value:95 },
+          { label:'Cloud', value:88 },
+          { label:'APIs', value:90 },
+          { label:'Backend', value:92 },
+          { label:'Web/Mobile', value:78 },
+          { label:'Data/Ops', value:84 }
+        ]
+      },
+      work: {
+        text: "My recent experience, verified live via the Certs Registry agent:",
+        timeline: [
+          { period:"2023 – Present", company:"DataRobot", role:"directing MCP initiatives, built the KTLO agent, contextual memory service" },
+          { period:"2021 – 2023", company:"Oomnitza", role:"led core dev team, enterprise web apps, CI/CD centralization" },
+          { period:"2019 – 2021", company:"Forcepoint", role:"dynamic intelligence manager, Splunk dashboards, Ping/AWS integrations" },
+          { period:"2013 – 2019", company:"8 West Consulting", role:"healthcare platforms in Kotlin/Spring/Java/React/Oracle" }
+        ],
+        flow: ['memory', 'kb', 'llm', 'certs'],
+        chart: null
+      },
+      education: {
+        text: "My academic background:",
+        bullets: [
+          "M.Sc. Data Science & Analytics (Level 9) — UCC, 2016–2018",
+          "Thesis: \"Human Activity Recognition using Android App\" (First Class Honours)",
+          "B.Sc. (Hons) Commercial Computing (Level 8) — DkIT, 2012–2013",
+          "B.Sc. Software Development (Level 7) — DkIT, 2010–2012"
+        ],
+        // skip tool/A2A, just kb lookup + reasoning
+        flow: ['kb', 'llm'],
+        chart: null
+      },
+      certs: {
+        text: "Certification verified via A2A call to the Certs Registry agent:",
+        bullets: [
+          "AWS Certified Solutions Architect – Associate (2020)",
+          "Status: active",
+          "Verified by: certs-registry agent"
+        ],
+        flow: ['llm', 'certs'],
+        chart: null
+      }
+    };
+
+    var memory = { lastTopic: null, turnCount: 0 };
+    var topicLabel = { intro:'Intro', skills:'Skills', work:'Work Experience', education:'Education', certs:'Certifications' };
+
+    var busy = false;
+    var agentStatusEl = document.getElementById('agentStatus');
+    var IDLE_STATUS = 'orchestrator loop';
+    // central planning status: lives under the Primary Agent node and
+    // mirrors the current step of the orchestrator loop (e.g.
+    // "planning: Intro" while it's working out the plan, then
+    // "loop complete → replying" once the response is ready to send back)
+    function setAgentStatus(text){ agentStatusEl.textContent = text; }
+
+    async function runPipeline(topic){
+      if (busy) return;
+      busy = true;
+      allChips.forEach(function(b){ b.disabled = true; });
+      clearLogs();
+      aguiClear();
+
+      var data = kb[topic];
+      var flow = data.flow || ['memory','kb','llm'];
+      var useMemory = flow.indexOf('memory') > -1;
+      var useKb = flow.indexOf('kb') > -1;
+      var useTool = flow.indexOf('tool') > -1;
+      var useA2A = flow.indexOf('certs') > -1;
+
+      var runChip = aguiEvent('RUN_STARTED', 'run');
+
+      var promptText = "Tell me about your " + topicLabel[topic].toLowerCase() + ".";
+      var userBubble = addMessage('user');
+      typeText(userBubble, promptText, 16);
+      await wait(promptText.length * 16 + 200);
+
+      setActive('you');
+      logAt('you', '> ' + topicLabel[topic]);
+      await sendPacket('you', 'agent', 'path-you-agent', 550);
+      clearActive('you');
+      setActive('agent');
+      setAgentStatus('planning: ' + topicLabel[topic]);
+      logAt('agent', 'planning: ' + topicLabel[topic]);
+      aguiSettle(runChip, 'RUN_STARTED');
+      var planChip = aguiEvent('STEP: planning', 'run');
+      await wait(280);
+      aguiSettle(planChip, 'planned');
+
+      // memory recall and knowledge-base search are MCP tool calls that hop
+      // through the shared MCP Tool node and out to their own small graph
+      // node (agent → tool → memory/kb → tool → agent)
+      if (useMemory){
+        setAgentStatus('calling: memory.recall()');
+        var memChip = aguiEvent('MCP: memory.recall()', 'run');
+        await sendPacket('agent', 'tool', 'path-agent-tool', 420);
+        setActive('tool');
+        logAt('tool', 'MCP → memory.recall()');
+        await sendPacket('tool', 'memory', 'path-tool-memory', 380);
+        setActive('memory');
+        if (memory.turnCount > 0){
+          logAt('memory', 'recalled: "' + topicLabel[memory.lastTopic] + '"');
+        } else {
+          logAt('memory', 'memory empty — first turn');
+        }
+        await wait(380);
+        await sendPacket('memory', 'tool', 'path-memory-tool', 380);
+        clearActive('memory');
+        logAt('tool', '✓ memory.recall returned');
+        await wait(220);
+        await sendPacket('tool', 'agent', 'path-tool-agent', 420);
+        clearActive('tool');
+        aguiSettle(memChip, 'memory.recall');
+      }
+
+      setActive('agent');
+      if (useKb){
+        setAgentStatus('calling: search_knowledge_base()');
+        var kbChip = aguiEvent('MCP: search_knowledge_base()', 'run');
+        await sendPacket('agent', 'tool', 'path-agent-tool', 420);
+        setActive('tool');
+        logAt('tool', 'MCP → search_knowledge_base()');
+        await sendPacket('tool', 'kb', 'path-tool-kb', 380);
+        setActive('kb');
+        logAt('kb', 'opening info.pdf...');
+        await wait(280);
+        logAt('kb', '✓ chunk: ' + topicLabel[topic]);
+        await wait(300);
+        await sendPacket('kb', 'tool', 'path-kb-tool', 380);
+        clearActive('kb');
+        logAt('tool', '✓ knowledge_base returned');
+        await wait(220);
+        await sendPacket('tool', 'agent', 'path-tool-agent', 420);
+        clearActive('tool');
+        aguiSettle(kbChip, 'knowledge_base');
+      }
+
+      setActive('agent');
+      setAgentStatus('reasoning over context');
+      var llmChip = aguiEvent('STEP: reasoning', 'run');
+      await sendPacket('agent', 'llm', 'path-agent-llm', 480);
+      setActive('llm');
+      logAt('llm', 'reasoning over context...');
+      await wait(550);
+
+      if (useTool){
+        var toolCallName = data.chart ? 'generate_bar_chart()' : 'search_knowledge_base()';
+        logAt('llm', 'requesting MCP tool call');
+        await wait(280);
+        await sendPacket('llm', 'agent', 'path-llm-agent', 420);
+        clearActive('llm');
+        setActive('agent');
+        aguiSettle(llmChip, 'reasoning');
+        setAgentStatus('calling: ' + toolCallName);
+        var toolChip = aguiEvent('MCP: ' + (data.chart ? 'generate_bar_chart' : 'search_knowledge_base'), 'run');
+        await sendPacket('agent', 'tool', 'path-agent-tool', 480);
+        setActive('tool');
+        logAt('tool', 'MCP: ' + toolCallName);
+        await wait(500);
+        logAt('tool', '✓ result returned');
+        await wait(280);
+        await sendPacket('tool', 'agent', 'path-tool-agent', 480);
+        clearActive('tool');
+        aguiSettle(toolChip, 'mcp tool');
+        setActive('agent');
+        setAgentStatus('synthesizing response');
+        llmChip = aguiEvent('STEP: synthesizing', 'run');
+        await sendPacket('agent', 'llm', 'path-agent-llm', 420);
+        setActive('llm');
+        logAt('llm', 'synthesizing with tool result');
+        await wait(450);
+      }
+
+      if (useA2A){
+        setAgentStatus('delegating via A2A');
+        logAt('llm', 'delegating via A2A protocol');
+        await wait(280);
+        await sendPacket('llm', 'agent', 'path-llm-agent', 420);
+        clearActive('llm');
+        setActive('agent');
+        aguiSettle(llmChip, 'reasoning');
+        var a2aChip = aguiEvent('A2A: certs-registry', 'run');
+        await sendPacket('agent', 'certs', 'path-agent-certs', 550);
+        setActive('certs');
+        logAt('certs', 'A2A handshake ok');
+        await wait(320);
+        logAt('certs', topic === 'certs' ? '✓ verify_certification()' : '✓ work history confirmed');
+        await wait(380);
+        await sendPacket('certs', 'agent', 'path-certs-agent', 550);
+        clearActive('certs');
+        aguiSettle(a2aChip, 'certs-registry');
+        setActive('agent');
+        setAgentStatus('merging peer response');
+        llmChip = aguiEvent('STEP: merging response', 'run');
+        await sendPacket('agent', 'llm', 'path-agent-llm', 420);
+        setActive('llm');
+        logAt('llm', 'merging peer agent response');
+        await wait(450);
+      }
+
+      logAt('llm', '✓ response composed');
+      aguiSettle(llmChip, 'composed');
+      await sendPacket('llm', 'agent', 'path-llm-agent', 480);
+      clearActive('llm');
+
+      setActive('agent');
+      setAgentStatus('loop complete → replying');
+      logAt('agent', 'loop complete → replying');
+      var finChip = aguiEvent('RUN_FINISHED', 'run');
+      await sendPacket('agent', 'you', 'path-agent-you', 550);
+      clearActive('agent');
+      aguiSettle(finChip, 'RUN_FINISHED');
+
+      var assistantBubble = addMessage('assistant');
+      setActive('you');
+      renderAnswer(assistantBubble, data, function(){ clearActive('you'); });
+      var itemCount = data.timeline ? data.timeline.length : (data.bullets ? data.bullets.length : 0);
+      var itemDelay = data.timeline ? 260 : 240;
+      var extra = data.chart ? (700 + data.chart.length * 90) : 400;
+      await wait(data.text.length * 12 + itemCount * itemDelay + extra);
+      logAt('you', '✓ delivered');
+
+      memory.lastTopic = topic;
+      memory.turnCount += 1;
+
+      setAgentStatus(IDLE_STATUS);
+      busy = false;
+      allChips.forEach(function(b){ b.disabled = false; });
+    }
+
+    suggestions.addEventListener('click', function(e){
+      var btn = e.target.closest('button[data-q]');
+      if (!btn || busy) return;
+      runPipeline(btn.getAttribute('data-q'));
     });
+
+    setTimeout(function(){ logAt('agent', 'ready — say hi'); }, 300);
+    // auto-run the intro on page load so visitors see the flow immediately
+    setTimeout(function(){ runPipeline('intro'); }, 900);
+  })();
   </script>
-
-
-  <script type="text/javascript" src="./assets/scripts/main.70a66962.js"></script>
 </body>
-
 </html>
